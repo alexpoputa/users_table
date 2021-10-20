@@ -5,7 +5,7 @@ const Datatable = ({ data }) => {
     const columns = data[0] && Object.keys(data[0]);
 
     return (
-        <table>
+        <table className="styled-table">
             <thead>
                     <tr>
                         {data[0] && columns.map(heading => (
@@ -14,17 +14,17 @@ const Datatable = ({ data }) => {
                     </tr>
             </thead>
             <tbody>
-                {data.map(user => {
+                {Object.keys(data).map(user => {
                     return (
-                        <tr key={user.id}>
-                        <td>{user.id}</td>
-                        <td>{user.name}</td>
-                        <td>{user.username}</td>
-                        <td>{user.email}</td>
-                        <td>{`${user.address.street}, ${user.address.city}`}</td>
-                        <td>{user.phone}</td>
-                        <td>{user.website}</td>
-                        <td>{user.company.name}</td>
+                        <tr key={data[user].id}>
+                        <td>{data[user].id}</td>
+                        <td>{data[user].name}</td>
+                        <td>{data[user].username}</td>
+                        <td>{data[user].email}</td>
+                        <td>{`${data[user].address.street}, ${data[user].address.city}`}</td>
+                        <td>{data[user].phone}</td>
+                        <td>{data[user].website}</td>
+                        <td>{data[user].company.name}</td>
                         </tr>
                     )
                 }
