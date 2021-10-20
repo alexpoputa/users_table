@@ -1,1 +1,1 @@
-# users_tabel
+# users_table
