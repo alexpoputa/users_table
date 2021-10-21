@@ -6,7 +6,7 @@ const Datatable = ({ data }) => {
 
     return (
         <table className="styled-table">
-            <thead>
+            <thead className="table-head">
                     <tr>
                         {data[0] && columns.map(heading => (
                             <th>{heading}</th>

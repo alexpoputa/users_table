@@ -66,6 +66,15 @@
   border-bottom: 2px solid #009879;
 }
 
+.table-head tr th {
+  text-align: center;
+}
+
+.search-dropdown {
+  width: 20%;
+  margin: 0 auto;
+}
+
 
 @keyframes App-logo-spin {
   from {
