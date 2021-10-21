@@ -17,11 +17,7 @@ const App = () => {
 const fetchName = async (user) => {
   const response = await fetch(`https://jsonplaceholder.typicode.com/users?name=${user}`);
     const data = await response.json();
-    const users = data.filter(user => {
-      if(user.name.toLowerCase().includes(query)){
-        return user;
-      }
-  });
+    const users= data.filter(user => user);
     setData(users);
 }
 
@@ -49,22 +45,35 @@ const currentCols = data.slice(indexOfFirstCol, indexOfLastCol);
 // Change page
 const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
-const onInputChange = (e) => {
-  e.preventDefault();
-  setQuery(e.target.value);
+// Used to delay the call, so it won't request the data every second when someone type in
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    const context = this;
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      timeout = null;
+      func.apply(context, args);
+    }, wait);
+  };
 }
 
-const clickedUser = (e) => {
+const onInputChange = debounce((text) => {
+  setQuery(text);
+  console.log(query);
+}, 500);
+
+const clickedUser = debounce((e) => {
   e.preventDefault();
   
-  fetchName(e.target.innerText);
-}
+ fetchName(e.target.innerText);
+}, 500);
 
   return (
       <div className="App">
           <>
           <div className="search-bar-dropdown">
-            <input type="text" className="form-control" placeholder="Search..." onChange={onInputChange} />
+            <input type="text" className="form-control" placeholder="Search..." onChange={e =>onInputChange(e.target.value)} />
             <ul className="list-group search-dropdown">
               {query === '' ? '' : 
                 Object.keys(data).map(option => (
